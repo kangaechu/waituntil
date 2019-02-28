@@ -3,7 +3,10 @@ package waituntil
 import (
 	"github.com/mattn/go-shellwords"
 	"log"
+	"os"
 	"os/exec"
+	"strings"
+	"time"
 )
 
 type Job struct {
@@ -34,12 +37,25 @@ func BuildJob(opts CmdOpts) (job Job, err error) {
 func (j Job) Run() (err error) {
 	command := j.Command[0]
 	args := j.Command[1:]
-	out, err := exec.Command(command, args...).Output()
-	if err != nil {
-		return err
-	}
 
-	result := string(out)
-	log.Println("output: ", result)
+	for i := 0; i <= int(j.MaxRetries); i++ {
+		out, err := exec.Command(command, args...).Output()
+		if err != nil {
+			return err
+		}
+		result := string(out)
+		log.Println("output: ", result)
+		j.Check(result)
+		time.Sleep(3 * time.Second)
+	}
+	os.Exit(1)
 	return nil
+}
+
+func (j Job) Check(runResult string) {
+	if strings.Contains(runResult, j.OkText) {
+		os.Exit(0)
+	} else if strings.Contains(runResult, j.NgText) {
+		os.Exit(1)
+	}
 }

@@ -22,7 +22,7 @@ func Run(opts CmdOpts) {
 }
 
 func printOptions(opts CmdOpts) {
-	log.Println("You specified options:")
+	log.Println("options:")
 	log.Printf("  Command:    %s", opts.Command)
 	log.Printf("  Interval:   %d", opts.Interval)
 	log.Printf("  Retries:    %d", opts.MaxRetries)
