@@ -38,7 +38,7 @@ func (j Job) Run() (err error) {
 	command := j.Command[0]
 	args := j.Command[1:]
 
-	for i := 0; i <= int(j.MaxRetries); i++ {
+	for i := 0; i < int(j.MaxRetries); i++ {
 		out, err := exec.Command(command, args...).Output()
 		if err != nil {
 			return err
