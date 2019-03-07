@@ -1,11 +1,7 @@
 package waituntil
 
-import (
-	"log"
-)
-
 func Run(opts CmdOpts) {
-	printOptions(opts)
+	opts.Print()
 
 	// Create new job
 	job, err := BuildJob(opts)
@@ -19,13 +15,4 @@ func Run(opts CmdOpts) {
 		panic(err)
 
 	}
-}
-
-func printOptions(opts CmdOpts) {
-	log.Println("options:")
-	log.Printf("  Command:    %s", opts.Command)
-	log.Printf("  Interval:   %d", opts.Interval)
-	log.Printf("  Retries:    %d", opts.MaxRetries)
-	log.Printf("  OK Message: %s", opts.OkText)
-	log.Printf("  NG Message: %s", opts.NgText)
 }
