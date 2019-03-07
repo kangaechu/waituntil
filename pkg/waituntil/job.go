@@ -43,7 +43,7 @@ func (j Job) Run() (err error) {
 		if err != nil {
 			return err
 		}
-		result := string(out)
+		result := strings.TrimSpace(string(out))
 		log.Println("output: ", result)
 		j.Check(result)
 		time.Sleep(3 * time.Second)
