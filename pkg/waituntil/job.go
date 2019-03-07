@@ -46,7 +46,7 @@ func (j Job) Run() (err error) {
 		result := strings.TrimSpace(string(out))
 		log.Println("output: ", result)
 		j.Check(result)
-		time.Sleep(3 * time.Second)
+		time.Sleep(time.Duration(j.Interval) * time.Second)
 	}
 	os.Exit(1)
 	return nil
