@@ -11,7 +11,7 @@ type CmdOpts struct {
 }
 
 func (opts CmdOpts) Print() {
-	log.Println("options:")
+	log.Println("Options:")
 	log.Printf("  Command:    %s", opts.Command)
 	log.Printf("  Interval:   %d", opts.Interval)
 	log.Printf("  Retries:    %d", opts.MaxRetries)
